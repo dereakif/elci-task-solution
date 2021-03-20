@@ -1,20 +1,32 @@
-import "./App.css";
-import React, { useState, useEffect } from "react";
+import React from "react";
+
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Feedback from "./components/Feedback/Feedback";
+import Home from "./components/Home/Home";
+import "./App.scss";
 
 function App() {
-  const [apiResponse, setApiResponse] = useState("");
-  const [getlist, setGetList] = useState("");
-  const [save, setSave] = useState("");
-  useEffect(() => {
-    fetch("http://localhost:9000/testAPI")
-      .then((res) => res.text())
-      .then((data) => setApiResponse(data));
-  }, []);
-
   return (
     <div className="App">
-      hello
-      <p className="App-intro">{apiResponse}</p>
+      <Router>
+        <div className="header">
+          <Link className="brand" to="/">
+            Elci Teknoloji Task
+          </Link>
+
+          <Link className="home-issue-btn " to="/feedback">
+            New Issue
+          </Link>
+        </div>
+        <Switch>
+          <Route path="/feedback">
+            <Feedback />
+          </Route>
+          <Route exact path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
